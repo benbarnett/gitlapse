@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+
+var argv = require('yargs').argv;
+var program = require('../lib/index')(argv);

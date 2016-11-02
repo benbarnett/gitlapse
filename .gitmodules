@@ -1,0 +1,3 @@
+[submodule "test/fixtures/gitlapse-test"]
+	path = test/fixtures/gitlapse-test
+	url = https://github.com/benbarnett/gitlapse-test.git
