@@ -11,17 +11,17 @@ program
   .option('-c, --config <path>', 'Path to GitLapse config', 'gitlapse.json')
   .option('-d --debug <mode>', 'Run in debug mode (makes things chatty in stdout)', false)
   .action(function(range, steps) {
-    // let gitlapse = require('../lib/index');
+    let GitLapse = require('../lib/index');
     let config = require(path.resolve(program.config));
     let revisions = range.split('..');
 
-    let gitlapse = require('../lib/index')(Object.assign({
+    let gitLapse = new GitLapse(Object.assign({
       'start-revision': revisions[0],
       'end-revision': revisions[1],
       steps: steps || 1,
       debug: program.debug
     }, config));
 
-    gitlapse.go();
+    gitLapse.go();
   })
   .parse(process.argv);

@@ -14,7 +14,8 @@ var testConfig = {
 };
 
 describe('Walking the git repository', function() {
-  var gitWalker = require('../lib/gitWalker')();
+  var GitWalker = require('../lib/GitWalker');
+  var gitWalker = new GitWalker();
 
   it('builds a list of commits within the range', function(done) {
     gitWalker.applyConfig(Object.assign({
