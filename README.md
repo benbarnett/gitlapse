@@ -6,10 +6,29 @@ Time lapse the design of your project. Will generate screenshots within a given 
 
 To run the example, ensure you have cloned the repo with submodules, as the tests rely on a seperate repo to ensure we're checking out revisions correctly.
 
-Once you've done that, you can hit the following:
+Create a config file called `gitlapse.json` similar to the following:
+
+```json
+{
+  "name": "GitLapse test config",
+  "repo": "test/fixtures/gitlapse-test",
+  "uri": "http://localhost:8080",
+  "output": "dist",
+  "scripts": {
+    "setup": "test/fixtures/setup.sh",
+    "server": "test/fixtures/server.sh"
+  },
+  "window": {
+    "width": 1280,
+    "height": 800
+  }
+}
+```
+
+Once you've done that, you can hit the following (assuming your `gitlapse.json` is in the current working directory):
 
 ```sh
-./bin/gitlapse --start-commit=932ad002c1d98b9704efed2f860f1a6e1a7b0e9d --end-commit=513b6013019185fd968b29db0058daf2215c8064 --repo="./test/fixtures/gitlapse-test"
+./bin/gitlapse 932ad002c1d98b9704efed2f860f1a6e1a7b0e9d..513b6013019185fd968b29db0058daf2215c8064
 ```
 
 ## Options
@@ -24,18 +43,18 @@ Once you've done that, you can hit the following:
   </thead>
   <tbody>
     <tr>
-      <th>start-commit</th>
+      <th>start-revision</th>
       <td>
-<pre>Commit SHA</pre>
+<pre>tag or commit sha</pre>
       </td>
-      <td>The SHA of the first commit you want to capture.</td>
+      <td>The SHA of the first revision you want to capture.</td>
     </tr>
     <tr>
-      <th>end-commit</th>
+      <th>end-revision</th>
       <td>
-<pre>Commit SHA</pre>
+<pre>tag or commit sha</pre>
       </td>
-      <td>TThe SHA of the last commit you want to capture.</td>
+      <td>TThe SHA of the last revision you want to capture.</td>
     </tr>
     <tr>
       <th>steps</th>
