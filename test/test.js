@@ -4,17 +4,23 @@ const FIXTURE_REPO = __dirname + '/fixtures/gitlapse-test';
 
 var expect = require('chai').expect;
 var git = require('simple-git')(FIXTURE_REPO);
+var testConfig = {
+  'scripts': {
+    'setup': 'test/fixtures/setup.sh',
+    'server': 'test/fixtures/server.sh'
+  },
+  'uri': 'http://localhost:8080',
+  'repo': `${FIXTURE_REPO}`,
+};
 
 describe('Walking the git repository', function() {
   var gitWalker = require('../lib/gitWalker')();
 
   it('builds a list of commits within the range', function(done) {
-    gitWalker.applyConfig({
-      repo: `${FIXTURE_REPO}`,
-      'start-commit': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
-      'end-commit': '513b6013019185fd968b29db0058daf2215c8064',
-      steps: 1
-    });
+    gitWalker.applyConfig(Object.assign({
+      'start-revision': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
+      'end-revision': '513b6013019185fd968b29db0058daf2215c8064'
+    }, testConfig));
 
     gitWalker.reset().init(() => {
       expect(gitWalker.nextCommit().hash).to.equal('932ad002c1d98b9704efed2f860f1a6e1a7b0e9d');
@@ -27,12 +33,11 @@ describe('Walking the git repository', function() {
   });
 
   it('jumps commits by the number of steps supplied', function(done) {
-    gitWalker.applyConfig({
-      repo: `${FIXTURE_REPO}`,
-      'start-commit': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
-      'end-commit': '513b6013019185fd968b29db0058daf2215c8064',
+    gitWalker.applyConfig(Object.assign({
+      'start-revision': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
+      'end-revision': '513b6013019185fd968b29db0058daf2215c8064',
       steps: 2
-    });
+    }, testConfig));
 
     gitWalker.reset().init(() => {
       expect(gitWalker.nextCommit().hash).to.equal('932ad002c1d98b9704efed2f860f1a6e1a7b0e9d');
@@ -43,12 +48,10 @@ describe('Walking the git repository', function() {
   });
 
   it('checks out the commits in the repository', function(done) {
-    gitWalker.applyConfig({
-      repo: `${FIXTURE_REPO}`,
-      'start-commit': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
-      'end-commit': '513b6013019185fd968b29db0058daf2215c8064',
-      steps: 1
-    });
+    gitWalker.applyConfig(Object.assign({
+      'start-revision': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
+      'end-revision': '513b6013019185fd968b29db0058daf2215c8064'
+    }, testConfig));
 
     gitWalker.reset().init(() => {
       gitWalker.checkoutNextCommit(() => {

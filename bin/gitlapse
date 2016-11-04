@@ -1,4 +1,54 @@
 #!/usr/bin/env node
 
-var argv = require('yargs').argv;
-var program = require('../lib/index')(argv);
+'use strict'
+
+var program = require('commander');
+var path = require('path');
+
+program
+  .version('1.0.0')
+  .arguments('<start-revision>..<end-revision> [steps]')
+  .option('-c, --config <path>', 'Path to GitLapse config', 'gitlapse.json')
+  .option('-d --debug <mode>', 'Run in debug mode (makes things chatty in stdout)', false)
+  .action(function(range, steps) {
+    let gitlapse = require('../lib/index');
+    let config = require(path.resolve(program.config));
+    let revisions = range.split('..');
+
+    gitlapse(Object.assign({
+      'start-revision': revisions[0],
+      'end-revision': revisions[1],
+      steps: steps || 1,
+      debug: program.debug
+    }, config));
+  })
+  .parse(process.argv);
+
+
+// var argv = require('yargs')
+//   .usage('$0 <cmd> [args]')
+//   .command('generate', 'generate the time lapse using arguments provided', function (argv) {
+//       program('generate', argv);
+//   })
+//   .help()
+//   .argv;
+
+
+// program
+//   .version('1.0.0')
+//   .option('-i, --interval', 'The number of days between each commit', 10)
+//   .option('-u, --uri', 'The URI of the page to take the screenshot', 'http://localhost:3000')
+//   .option('-s, --setup', 'Path to the setup script to run between each git checkout', './config/setup.sh')
+//   .option('-sc, --start-commit', 'The SHA of the commit to start the time lapse from')
+//   .option('-ec, --end-commit', 'The SHA of the commit to end the time lapse at')
+//   .option('-w, --window', 'The size of the window to capture the page at', '1280x800')
+//   .option('-o --output', 'Path to save the time lapse', './dist')
+//   .option('-d --debug', 'Run in debug mode')
+//   .option('-r --repo', 'Local path to git repository')
+//   .parse(process.argv);
+
+
+
+// git.checkout(argv.startcommit, function() {
+//   console.log(argv.startcommit);
+// });

@@ -2,7 +2,9 @@
   "name": "gitlapse",
   "version": "1.0.0",
   "description": "Time lapse the design of your project",
-  "main": "./bin/gitlapse",
+  "bin": {
+    "gitlapse": "./bin/gitlapse"
+  },
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha"
   },
@@ -22,6 +24,8 @@
   },
   "homepage": "https://github.com/benbarnett/gitlapse#readme",
   "dependencies": {
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
     "commander": "^2.9.0",
     "moment": "^2.15.2",
     "progress": "^1.1.8",
