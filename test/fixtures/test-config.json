@@ -1,0 +1,14 @@
+{
+  "name": "GitLapse test fixture config",
+  "repo": "test/fixtures/gitlapse-test",
+  "uri": "http://localhost:8080",
+  "output": "dist",
+  "scripts": {
+    "setup": "test/fixtures/setup.sh",
+    "server": "test/fixtures/server.sh"
+  },
+  "window": {
+    "width": 1280,
+    "height": 800
+  }
+}
