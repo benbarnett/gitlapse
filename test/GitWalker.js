@@ -6,12 +6,12 @@ describe('Walking the git repository', function() {
   const FIXTURE_REPO = __dirname + '/fixtures/gitlapse-test';
   var git = require('simple-git')(FIXTURE_REPO);
   var testConfig = {
-    'scripts': {
-      'setup': 'test/fixtures/setup.sh',
-      'server': 'test/fixtures/server.sh'
+    scripts: {
+      setup: 'test/fixtures/setup.sh',
+      server: 'test/fixtures/server.sh'
     },
-    'uri': 'http://localhost:8080',
-    'repo': `${FIXTURE_REPO}`,
+    uri: 'http://localhost:8080',
+    repo: `${FIXTURE_REPO}`,
   };
 
   var GitWalker = require('../lib/GitWalker');
@@ -19,8 +19,8 @@ describe('Walking the git repository', function() {
 
   it('builds a list of commits within the range', function(done) {
     gitWalker.applyConfig(Object.assign({
-      'start-revision': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
-      'end-revision': '513b6013019185fd968b29db0058daf2215c8064'
+      startRevision: '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
+      endRevision: '513b6013019185fd968b29db0058daf2215c8064'
     }, testConfig));
 
     gitWalker.reset().init(() => {
@@ -35,8 +35,8 @@ describe('Walking the git repository', function() {
 
   it('jumps commits by the number of steps supplied', function(done) {
     gitWalker.applyConfig(Object.assign({
-      'start-revision': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
-      'end-revision': '513b6013019185fd968b29db0058daf2215c8064',
+      startRevision: '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
+      endRevision: '513b6013019185fd968b29db0058daf2215c8064',
       steps: 2
     }, testConfig));
 
@@ -50,8 +50,8 @@ describe('Walking the git repository', function() {
 
   it('checks out the commits in the repository', function(done) {
     gitWalker.applyConfig(Object.assign({
-      'start-revision': '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
-      'end-revision': '513b6013019185fd968b29db0058daf2215c8064'
+      startRevision: '932ad002c1d98b9704efed2f860f1a6e1a7b0e9d',
+      endRevision: '513b6013019185fd968b29db0058daf2215c8064'
     }, testConfig));
 
     gitWalker.reset().init(() => {

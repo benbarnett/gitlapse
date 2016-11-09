@@ -35,8 +35,8 @@ describe('The executable passes in the config', function() {
     var args = ['abcde..fghij'];
     var instantiatedGitLapse = runGitLapseExecutableStub.call(this, args).instantiatedGitLapse;
 
-    expect(instantiatedGitLapse.config).to.have.property('start-revision', 'abcde');
-    expect(instantiatedGitLapse.config).to.have.property('end-revision', 'fghij');
+    expect(instantiatedGitLapse.config.startRevision).to.equal('abcde');
+    expect(instantiatedGitLapse.config.endRevision).to.equal('fghij');
   });
 
   it('passes through the steps option', function() {
