@@ -125,12 +125,3 @@ Once you've done that, you can hit the following (assuming your `gitlapse.json` 
     </tr>
 </tbody>
 </table>
-
-## Troubleshooting
-
-If things go wrong and the child server crashes, then find it by the port and force kill it:
-
-```sh
-lsof -wni tcp:<port> # specified in your `gitlapse.json`
-kill -9 PID
-```
