@@ -1,6 +1,6 @@
 {
   "name": "gitlapse",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Time lapse the design of your project",
   "bin": {
     "gitlapse": "./bin/gitlapse"
