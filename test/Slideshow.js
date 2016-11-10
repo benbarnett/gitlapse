@@ -1,31 +1,43 @@
 'use strict';
 
-var expect = require('chai').expect;
-var events = require('events');
-var util = require('util');
-var proxyquire = require('proxyquire');
+let expect = require('chai').expect;
+let events = require('events');
+let util = require('util');
+let proxyquire = require('proxyquire');
 
 describe('Generating image slideshows', function() {
-  it('prepares markup for the slides', function() {
-    var Slideshow = require('../lib/Slideshow');
-    var slides = [
-      {
-        src: 'test1.png',
-        caption: 'testing1'
-      },
-      {
-        src: 'test2.png',
-        caption: 'testing2'
-      }
-    ];
+  let Slideshow = require('../lib/Slideshow');
+  let slides = [
+    {
+      src: 'test1.png',
+      caption: 'testing1'
+    },
+    {
+      src: 'test2.png',
+      caption: 'testing2'
+    }
+  ];
 
-    var slideshow = new Slideshow(slides);
-    var html = slideshow.generateSlidesHTML();
+  it('renders the template', function(done) {
+    let slideshow = new Slideshow(slides, {
+      name: 'testing',
+      width: 500,
+      height: 300
+    });
+    let htmlRenderStream = slideshow.templateRenderer();
+    let html = '';
 
-    expect(html).to.have.string(`<img src="${slides[0].src}"`);
-    expect(html).to.have.string(`<figcaption>${slides[0].caption}.</figcaption>`);
+    htmlRenderStream.on('data', (chunk) => {
+      html += chunk;
+    });
 
-    expect(html).to.have.string(`<img src="${slides[1].src}"`);
-    expect(html).to.have.string(`<figcaption>${slides[1].caption}.</figcaption>`);
+    htmlRenderStream.on('end', () => {
+      expect(html).to.have.string(`<img src="${slides[0].src}"`);
+      expect(html).to.have.string(`<img src="${slides[1].src}"`);
+      expect(html).to.have.string(`<title>testing |`);
+      expect(html).to.have.string(`data-ratio="500/300"`);
+
+      done();
+    });
   });
 });
