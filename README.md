@@ -2,21 +2,25 @@
 
 Time lapse the design of your project. Will generate screenshots within a given range of commits, and run your setup script between each one to ensure the dependencies are always inline.
 
+## Install
+
+```sh
+npm install -g gitlapse
+```
+
 ## Example usage
 
-To run the example, ensure you have cloned the repo with submodules, as the tests rely on a seperate repo to ensure we're checking out revisions correctly.
-
-Create a config file called `gitlapse.json` similar to the following:
+Create a config file called `gitlapse.json` similar to the following in the project's directory you want to create the time lapse for:
 
 ```json
 {
-  "name": "GitLapse test config",
-  "repo": "test/fixtures/gitlapse-test",
-  "uri": "http://localhost:8080",
+  "name": "GitLapse project",
+  "repo": "./",
+  "uri": "http://localhost:3000",
   "output": "dist",
   "scripts": {
-    "setup": "test/fixtures/setup.sh",
-    "server": "test/fixtures/server.sh"
+    "setup": "scripts/setup.sh",
+    "server": "scripts/server.sh"
   },
   "window": {
     "width": 1280,
@@ -28,7 +32,12 @@ Create a config file called `gitlapse.json` similar to the following:
 Once you've done that, you can hit the following (assuming your `gitlapse.json` is in the current working directory):
 
 ```sh
-./bin/gitlapse 932ad002c1d98b9704efed2f860f1a6e1a7b0e9d..513b6013019185fd968b29db0058daf2215c8064
+gitlapse <oldest-revision>..<newest-revision> [steps]
+
+# eg gitlapse e7848c423ffb4807846fc9e0cde9fbaf23578621..dbf4ed3c4c67ac1a9961be5d329f4acaac9505de
+
+# Use --help to get more instructions
+gitlapse --help
 ```
 
 ## Options
