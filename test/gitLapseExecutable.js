@@ -31,8 +31,15 @@ describe('The executable passes in the config', function() {
     };
   }
 
+  it('sets the path to the configuration file from option', function() {
+    var args = ['abcde..fghij', '--config', './test/fixtures/test-config.json'];
+    var gitLapseExecutable = runGitLapseExecutableStub.call(this, args).gitLapseExecutable;
+
+    expect(gitLapseExecutable.program().config).to.equal('./test/fixtures/test-config.json');
+  });
+
   it('passes through the commit range', function() {
-    var args = ['abcde..fghij'];
+    var args = ['abcde..fghij', '--config', './test/fixtures/test-config.json'];
     var instantiatedGitLapse = runGitLapseExecutableStub.call(this, args).instantiatedGitLapse;
 
     expect(instantiatedGitLapse.config.startRevision).to.equal('abcde');
@@ -40,17 +47,10 @@ describe('The executable passes in the config', function() {
   });
 
   it('passes through the steps option', function() {
-    var args = ['abcde..fghij', 15];
+    var args = ['abcde..fghij', 15, '--config', './test/fixtures/test-config.json'];
     var instantiatedGitLapse = runGitLapseExecutableStub.call(this, args).instantiatedGitLapse;
 
     expect(instantiatedGitLapse.config).to.have.property('steps', 15);
-  });
-
-  it('sets the path to the configuration file from option', function() {
-    var args = ['abcde..fghij', '--config', './test/fixtures/test-config.json'];
-    var gitLapseExecutable = runGitLapseExecutableStub.call(this, args).gitLapseExecutable;
-
-    expect(gitLapseExecutable.program().config).to.equal('./test/fixtures/test-config.json');
   });
 
   it('applies the options from the specified config file', function() {
