@@ -63,7 +63,7 @@ gitlapse --help
       <td>
 <pre>tag or commit sha</pre>
       </td>
-      <td>TThe SHA of the last revision you want to capture.</td>
+      <td>The SHA of the last revision you want to capture.</td>
     </tr>
     <tr>
       <th>steps</th>
